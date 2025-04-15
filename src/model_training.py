@@ -4,6 +4,7 @@ import pandas as pd
 import pickle
 import logging
 from sklearn.ensemble import RandomForestClassifier
+import yaml
 
 # set up logger 
 log_dir = 'logs'
@@ -25,6 +26,16 @@ file_handler.setFormatter(formatter)
 
 logger.addHandler(console_handler)
 logger.addHandler(file_handler)
+
+def load_params(params_path):
+    try:
+        with open(params_path, 'r') as file:
+            params = yaml.safe_load(file)
+        logger.debug('loading parameters successfully.')
+        return params
+    except Exception as e:
+        logger.error('Unexpected error while loading params %s', e)
+        raise
 
 def load_data(file_path):
     """Load data from csv file."""
@@ -64,7 +75,7 @@ def save_model(model, file_path):
 
 def main():
     try:
-        params = {'n_estimators': 25, 'random_state': 2}
+        params = load_params(params_path='params.yaml')['model_training']
         train_data = load_data('./data/processed/train_tfidf.csv')
         X_train = train_data.iloc[:, :-1].values
         y_train = train_data.iloc[:, -1].values
