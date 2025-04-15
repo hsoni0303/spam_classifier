@@ -47,7 +47,7 @@ def apply_tfidf(train_data , test_data, max_features):
         y_test = test_data['target'].values
 
         X_train_bow = vectorizer.fit_transform(X_train)
-        X_test_bow = vectorizer.fit_transform(X_test)
+        X_test_bow = vectorizer.transform(X_test)
 
         train_df = pd.DataFrame(X_train_bow.toarray())
         train_df['label'] = y_train

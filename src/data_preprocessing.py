@@ -45,7 +45,7 @@ def transform_text(text):
     # remove the alphanumeric tokens
     text = [word for word in text if word.isalnum()]
     # remove stopwords and punctuations
-    text = [word for word in text if word not in stopwords.words('english')]
+    text = [word for word in text if word not in stopwords.words('english') and word not in string.punctuation]
     # stem the words
     ps = PorterStemmer()
     text = [ps.stem(word) for word in text]
