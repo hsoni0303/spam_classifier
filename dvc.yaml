@@ -15,7 +15,7 @@ stages:
     - src/data_preprocessing.py
     outs:
     - data/interim
-    
+
   feature_engineering:
     cmd: python3 src/feature_engineering.py
     deps:
@@ -36,7 +36,7 @@ stages:
     - model_training.random_state
     outs:
     - model/model.pkl
-  
+
   model_evalution:
     cmd: python3 src/model_evalution.py
     deps:
@@ -44,3 +44,10 @@ stages:
     - src/model_evalution.py
     metrics:
     - report/metrics.json
+params:
+- dvclive/params.yaml
+metrics:
+- dvclive/metrics.json
+plots:
+- dvclive/plots/metrics:
+    x: step
